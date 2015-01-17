@@ -29,35 +29,35 @@
 		!check($email,2,50,"email") ||
 		!check($user,2,50,"user") ||
 		!check($pass1,2,50,"user")
-	)
+	) {
 		header("Location: error.php?err=signup3");
+		exit();
+	}
 	
 	// Get server data
-	$hndl = fopen("../../servdata.txt","r");
-	$rval = explode(",",fread($hndl,2048));
-	fclose($hndl);
-	$servername = $rval[0];
-	$username = $rval[1];
-	$password = $rval[2];
+	include "server.php";
+	
 	// Check that no users already have the username
 	try {
 		$conn = new PDO("mysql:host=$servername;dbname=nobr_user", $username, $password);;
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$users = $conn->prepare("SELECT * FROM user_data WHERE user='$user'");
 		$users->execute();
-		if($users->fetch(PDO::FETCH_ASSOC) !== false)
+		if($users->fetch(PDO::FETCH_ASSOC) !== false) {
 			header("Location: error.php?err=signup4");
+			exit();
+		}
 		
 		// Create secure password hash
-		$hash = password_hash($pass1,PASSWORD_BCRYPT);
+		$hash = password_hash($pass1,PASSWORD_DEFAULT);
 		// Create user
 		$conn->exec("INSERT INTO user_data (first_name,last_name,email,user,pass) VALUES ('$first_name','$last_name','$email','$user','$hash')");
 		
-		// Sign in and redirect
-		$_SESSION["user"] = $user;
-		header("Location: ../index.php");
 	} catch(PDOException $e) {
 		echo $e->getMessage();	
 	}
 	
+	// Sign in and redirect
+	$_SESSION["user"] = $user;
+	header("Location: ../index.php");
 ?>

@@ -1,4 +1,37 @@
-<?php include "part/head.php"; ini("NoteBrain"); ?>
+<?php
+	include "part/head.php"; ini("NoteBrain");
+	
+	// If user is signed in, then...
+	if(isset($_SESSION["user"])) {
+?>
+<form action="newNote.php" method="post">
+	Begin typing a search query, and press enter to create a note.<br />
+	<input name="note" type="text" />
+	<button>Create Note</button>
+</form>
+<?php
+	// If user is not signed in, then
+	} else {
+?>
+<h3>Sign In</h3>
+<form action="ver/signin.php" method="post">
+<table>
+	<tr>
+		<td>Username</td>
+		<td><input name="user" type="text" /></td>
+	</tr>
+	<tr>
+		<td>Password</td>
+		<td><input name="pass" type="password" /></td>
+	</tr>
+	<tr>
+		<td colspan="2"><button>Sign In</button></td>
+	</tr>
+</table>
+</form>
+
+<!-- Allow users to sign up if not already -->
+<h3>Or, Sign Up</h3>
 <form action="ver/signup.php" method="post">
 <table>
 	<tbody>
@@ -32,4 +65,7 @@
 	</tbody>
 </table>
 </form>
-<?php include "part/foot.php" ?>
+<?php 
+	}
+	include "part/foot.php";
+?>

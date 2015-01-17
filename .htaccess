@@ -1,0 +1,6 @@
+# When an HTTP error occurs, redirect to error page
+ErrorDocument 401 /notebrain/ver/error.php?err=400
+ErrorDocument 401 /notebrain/ver/error.php?err=401
+ErrorDocument 403 /notebrain/ver/error.php?err=403
+ErrorDocument 404 /notebrain/ver/error.php?err=404
+ErrorDocument 500 /notebrain/ver/error.php?err=500
