@@ -19,15 +19,26 @@ try {
 	}
 	$conn->exec("CREATE DATABASE nobr_user");
 	$conn->exec("CREATE DATABASE nobr_note");
-	echo "Databases refreshed/created successfully<br>";
 	
 	// Create the user table
 	$conn = new PDO("mysql:host=$servername;dbname=nobr_user", $username, $password);
 	$conn->exec("CREATE TABLE user_data(first_name CHAR(50),last_name CHAR(50),email CHAR(50),user CHAR(50) PRIMARY KEY,pass CHAR(255))");
-	echo "Table refreshed/created successfully<br>";
 } catch(PDOException $e) {
 	echo $e->getMessage();
 }
 $conn = null;
+
+// Sign user out (if already signed in)
+session_start();
+session_destroy();
+
+// Delete XML for note structures if any users are signed up
+$dirHandle = opendir("../user/notes/"); 
+while($file = readdir($dirHandle))
+	if(!is_dir($file))
+		unlink("../user/notes/$file");
+closedir($dirHandle); 
+
+header("Location: ../index.php");
 
 ?>

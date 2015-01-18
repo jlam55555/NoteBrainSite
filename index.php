@@ -4,9 +4,9 @@
 	// If user is signed in, then...
 	if(isset($_SESSION["user"])) {
 ?>
-<form action="newNote.php" method="post">
+<form action="res/create.php" method="post">
 	Begin typing a search query, and press enter to create a note.<br />
-	<input name="note" type="text" />
+	<input name="note" type="text" onkeypress="search(this.value)" />
 	<button>Create Note</button>
 </form>
 <?php

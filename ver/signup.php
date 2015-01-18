@@ -50,12 +50,19 @@
 		
 		// Create secure password hash
 		$hash = password_hash($pass1,PASSWORD_DEFAULT);
+		
 		// Create user
 		$conn->exec("INSERT INTO user_data (first_name,last_name,email,user,pass) VALUES ('$first_name','$last_name','$email','$user','$hash')");
 		
 	} catch(PDOException $e) {
 		echo $e->getMessage();	
 	}
+	
+	// Create file to store note structure
+	$xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><structure></structure>";
+	$file = fopen("../user/notes/$user.xml","x");
+	fwrite($file,$xml);
+	fclose($file);
 	
 	// Sign in and redirect
 	$_SESSION["user"] = $user;
