@@ -31,7 +31,7 @@
 		
 		// If no user is found, redirect to error page
 		if($user_data == null) {
-			header("Location: error.php?err=siginin2");
+			header("Location: error.php?err=signin2");
 			exit();
 		}
 		
