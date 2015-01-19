@@ -1,12 +1,12 @@
 <?php
 	// Check for error ($_GET). If is not set, then redirect back to homepage
 	include "tools.php";
-	if(!isset($_GET["err"]) || tidy($_GET["err"]) == "")
+	if(!isset($_GET["err"]) || ($get_err = tidy($_GET["err"],null,true)) == "")
 		header("Location: ../index.php");
 		
 	// Check the error id; if it is not a "registered" one, then redirect back to homepage
 	// I will add new errors here as the website progresses
-	switch($_GET["err"]) {
+	switch($get_err) {
 		case "signup1":
 		case "signin1":
 			$err = "The form is not filled out.";
@@ -27,7 +27,7 @@
 			$err = "Password is incorrect.";
 			break;
 		case "pdoexception":
-			$err = $_GET["msg"];
+			$err = tidy($_GET["msg"],null,true);
 			break;
 		case "400":
 			$err = "Bad Request.";
@@ -53,7 +53,7 @@
 ?>
 
 <h1>Error</h1>
-<p><?php echo "Error: " . $_GET["err"] . " ($err)" ?></p>
+<p><?php echo "Error: " . $get_err . " ($err)" ?></p>
 <a href="/notebrain/index.php">Home.</a>
 <p>You will automatically be redirected to the homepage in <span id="timer">5</span> seconds.</p>
 
