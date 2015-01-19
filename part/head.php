@@ -16,8 +16,8 @@
 		<meta name="author" content="Jonathan Lam" />
 		<meta name="description" content="Quick, easy notes for new ideas or facts - simple, fast creation and search all in one for convenient storage; Made for studying, sharing and building on ideas, and research for the multitasking mind." />
 		<meta name="keywords" content="jonathan, lam, note, search, share, research, study, research, multitask, fast, convenient, ideas, facts, store" />
-		<link rel="stylesheet" type="text/css" href="res/style.css" />
-		<script src="res/script.js"></script>
+		<link rel="stylesheet" type="text/css" href="/NoteBrain/res/style.css" />
+		<script src="/NoteBrain/res/script.js"></script>
 	</head>
 	<body>
 		<div id="header">
