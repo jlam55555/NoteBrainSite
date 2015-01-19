@@ -43,8 +43,7 @@
 				break;
 			case "text":	// checking regular text
 			default:
-				if(preg_match("//",$data))	// WORKING ON THIS
-					return false;
+				return true; // right now no restrictions
 		}
 		return true;
 	}

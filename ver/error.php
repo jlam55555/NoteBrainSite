@@ -7,6 +7,7 @@
 	// Check the error id; if it is not a "registered" one, then redirect back to homepage
 	// I will add new errors here as the website progresses
 	switch($get_err) {
+	// SIGNIN/UP ERRORS
 		case "signup1":
 		case "signin1":
 			$err = "The form is not filled out.";
@@ -26,9 +27,15 @@
 		case "signin3":
 			$err = "Password is incorrect.";
 			break;
+		// CREATE NOTE ERRORS
+		case "note1":
+			$err = "Note is empty or whitespace, or note is the wrong length (has to be 3-500 characters).";
+			break;
+		// PDOEXCEPTION
 		case "pdoexception":
 			$err = tidy($_GET["msg"],null,true);
 			break;
+		// WEBSITE ERRORS
 		case "400":
 			$err = "Bad Request.";
 			break;
@@ -56,11 +63,12 @@
 <p><?php echo "Error: " . $get_err . " ($err)" ?></p>
 <a href="/notebrain/index.php">Home.</a>
 <p>You will automatically be redirected to the homepage in <span id="timer">5</span> seconds.</p>
+<button onclick="clearInterval(t); elem.innerHTML = 'STOPPED';">Click to stop timer (debugging).</button>
 
 <script>
 	// The script for the timer countdown before the redirect
-	setInterval(function() {
-		var elem = document.getElementById("timer");
+	t = setInterval(function() {
+		elem = document.getElementById("timer");
 		elem.innerHTML = parseInt(elem.innerHTML)-1;
 		if(elem.innerHTML == 0)
 			window.location = "/notebrain/index.php";

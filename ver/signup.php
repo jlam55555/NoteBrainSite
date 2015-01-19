@@ -28,7 +28,7 @@
 		!check($last_name,2,50,"plain") ||
 		!check($email,2,50,"email") ||
 		!check($user,2,50,"user") ||
-		!check($pass1,2,50,"user")
+		!check($pass1,2,50,"text")
 	) {
 		header("Location: error.php?err=signup3");
 		exit();
@@ -39,7 +39,7 @@
 	
 	// Check that no users already have the username
 	try {
-		$conn = new PDO("mysql:host=$servername;dbname=nobr_user", $username, $password);;
+		$conn = new PDO("mysql:host=$servername;dbname=nobr_user", $username, $password);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$users = $conn->prepare("SELECT * FROM user_data WHERE user='$user'");
 		$users->execute();
@@ -53,6 +53,10 @@
 		
 		// Create user
 		$conn->exec("INSERT INTO user_data (first_name,last_name,email,user,pass) VALUES ('$first_name','$last_name','$email','$user','$hash')");
+		
+		// Create table to store user note
+		$conn = new PDO("mysql:host=$servername;dbname=nobr_note", $username, $password);
+		$conn->exec("CREATE TABLE $user(content TEXT(500),folder_id INT(4))");
 		
 	} catch(PDOException $e) {
 		echo $e->getMessage();	
