@@ -8,31 +8,22 @@
 		$structure_query->execute();
 		return $structure_query->fetchAll(PDO::FETCH_ASSOC);
 	}
-
-	// Loop through all the folders (and print)
-	function loopDB($array,$level,$type) {
-
-		$return = ($type == "option") ? "" : null;
+	
+	// Loop through the DB folders and return an array
+	function loopDB($array,$level) {
+	
+		$return = null;
 	
 		// Loop through nested folders
 		foreach($array as $folder) {
 		
-			// Formatting the printing
-			if($type == "option") {
-				$return .= "<option value=\"" . $folder["id"] . "\">";
-				for($i=0; $i<$level; $i++)
-					$return .= "&nbsp;&nbsp;";
-				if($folder["id"] != 1)
-					$return .= "&rdsh; ";
-				$return .= $folder["name"];
-				$return .= "</option>";
-			} else {
-				//$type[$level][] = $folder["name"];
-				$type[$folder["id"]] = $level;
-			}
+			// Add the folder and level
+			$return[] = array($folder["id"],$folder["name"],$level);
 			
-			// Go through further nested folders
-			$return .= loopDB(query($folder["id"]),$level+1,$type);
+			// Go through further nested folders, merge it with $return
+			if(($new = loopDB(query($folder["id"]),$level+1)) != null)
+				$return = array_merge($return,loopDB(query($folder["id"]),$level+1));
+			
 		}
 		
 		return $return;
