@@ -11,19 +11,20 @@
 	<button>Create Note</button>
 	<p id="char_count">3 more characters to submit.</p>
 </form>
-<?php
-	
-	// Create a select element (dropdown box) with the folders dynamically filled in
-	echo "<select id=\"folders\" name=\"folders\" onchange=\"request(this.value,document.getElementById('nested').checked);\">";
-	// Put in dropdown box to select folder
-	echo "View notes: ";
+	<select id="folders" name="folders" onchange="request(this.value,document.getElementById('nested').checked);">";
+	View notes:
+<?php 
+
+	// Dynamically generate dropdown box options to select folder
 	include "part/select_folder.php";
-	echo "</select>";
-	echo "<br />Include nested folders and notes";
-	echo "<input type=\"checkbox\" id=\"nested\" onchange=\"request(document.getElementById('folders').value,this.checked);\" />";
 	
-	// Put in empty paragraph to store visual representation of note structure
-	echo "<p id=\"notes\"></p>";
+?>
+	</select>
+	<br />Include nested folders and notes
+	<input type="checkbox" id="nested" onchange="request(document.getElementById('folders').value,this.checked);" />
+	<p id="notes"></p>
+	
+<?php
 
 	// If user is not signed in, then
 	} else {
