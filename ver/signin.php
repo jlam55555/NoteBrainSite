@@ -42,7 +42,7 @@
 			exit();
 		}		
 	} catch(PDOException $e) {
-		header("Location: error.php?err=pdoexception");
+		header("Location: error.php?err=pdoexception&msg=" . str_replace("\n"," ",$e));
 		exit();
 	}
 	

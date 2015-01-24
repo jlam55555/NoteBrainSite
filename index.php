@@ -3,13 +3,28 @@
 	
 	// If user is signed in, then...
 	if(isset($_SESSION["user"])) {
+		$user = $_SESSION["user"];
 ?>
-<form action="ver/create.php" method="post">
+<form action="ver/create.php" method="post" autocomplete="off">
 	Begin typing a search query, and press enter to create a note.<br />
-	<input name="note" onkeypress="search(this.value)" maxlength="500" />
+	<input name="note" onkeydown="search(this.value);char_count(this.value)" onkeyup="search(this.value);char_count(this.value)" maxlength="500" autofocus />
 	<button>Create Note</button>
+	<p id="char_count">3 more characters to submit.</p>
 </form>
 <?php
+	
+	// Create a select element (dropdown box) with the folders dynamically filled in
+	echo "<select id=\"folders\" name=\"folders\" onchange=\"request(this.value,document.getElementById('nested').checked);\">";
+	// Put in dropdown box to select folder
+	echo "View notes: ";
+	include "part/select_folder.php";
+	echo "</select>";
+	echo "<br />Include nested folders and notes";
+	echo "<input type=\"checkbox\" id=\"nested\" onchange=\"request(document.getElementById('folders').value,this.checked);\" />";
+	
+	// Put in empty paragraph to store visual representation of note structure
+	echo "<p id=\"notes\"></p>";
+
 	// If user is not signed in, then
 	} else {
 ?>

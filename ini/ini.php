@@ -16,9 +16,11 @@ try {
 	if($chck->fetch(PDO::FETCH_ASSOC) !== false) {
 		$conn->exec("DROP DATABASE nobr_user");
 		$conn->exec("DROP DATABASE nobr_note");
+		$conn->exec("DROP DATABASE nobr_folder");
 	}
 	$conn->exec("CREATE DATABASE nobr_user");
 	$conn->exec("CREATE DATABASE nobr_note");
+	$conn->exec("CREATE DATABASE nobr_folder");
 	
 	// Create the user table
 	$conn = new PDO("mysql:host=$servername;dbname=nobr_user", $username, $password);
@@ -32,13 +34,7 @@ $conn = null;
 session_start();
 session_destroy();
 
-// Delete XML for note structures if any users are signed up
-$dirHandle = opendir("../user/notes/"); 
-while($file = readdir($dirHandle))
-	if(!is_dir($file))
-		unlink("../user/notes/$file");
-closedir($dirHandle); 
-
+// Redirect to homepage
 header("Location: ../index.php");
 
 ?>

@@ -56,14 +56,20 @@
 		
 		// Create table to store user note
 		$conn = new PDO("mysql:host=$servername;dbname=nobr_note", $username, $password);
-		$conn->exec("CREATE TABLE $user(content TEXT(500),folder_id INT(4))");
+		$conn->exec("CREATE TABLE $user(id INT(4) AUTO_INCREMENT PRIMARY KEY,content TEXT(500),folder_id INT(4))");
 		
+		// Create table to store file structure
+		$conn = new PDO("mysql:host=$servername;dbname=nobr_folder", $username, $password);
+		$conn->exec("CREATE TABLE $user(id INT(4) AUTO_INCREMENT PRIMARY KEY,name TEXT(50),parent_id INT(4))");
+		$conn->exec("INSERT INTO $user(name,parent_id) VALUES('root',0)");
+	
 	} catch(PDOException $e) {
-		echo $e->getMessage();	
+		header("Location: error.php?err=pdoexception&msg=" . str_replace("\n"," ",$e));
+		exit();
 	}
 	
 	// Create file to store note structure
-	$xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><structure></structure>";
+	$xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><structure><folder id=\"0\" name=\"root\"></folder></structure>";
 	$file = fopen("../user/notes/$user.xml","x");
 	fwrite($file,$xml);
 	fclose($file);

@@ -14,7 +14,7 @@
 			else
 				$data = strtolower($data);
 		if(isset($spec_char) && $spec_char)
-			$data = htmlentities($data);
+			$data = htmlentities($data, ENT_QUOTES);
 		return $data;
 	}
 	

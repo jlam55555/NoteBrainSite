@@ -20,7 +20,7 @@
 	try {
 		$conn = new PDO("mysql:host=$servername;dbname=nobr_note", $username, $password);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$conn->exec("INSERT INTO $user(content,folder_id) VALUES('$note',0)");
+		$conn->exec("INSERT INTO $user(content,folder_id) VALUES('$note',1)");
 	} catch(PDOException $e) {
 		header("Location: error.php?err=pdoexception&msg=" . str_replace("\n"," ",$e));
 		exit();
