@@ -14,10 +14,8 @@
 	<select id="folders" name="folders" onchange="request(this.value,document.getElementById('nested').checked);">";
 	View notes:
 <?php 
-
 	// Dynamically generate dropdown box options to select folder
 	include "part/select_folder.php";
-	
 ?>
 	</select>
 	<br />Include nested folders and notes
@@ -25,7 +23,6 @@
 	<p id="notes"></p>
 	
 <?php
-
 	// If user is not signed in, then
 	} else {
 ?>
