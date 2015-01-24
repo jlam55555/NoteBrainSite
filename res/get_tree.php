@@ -52,7 +52,7 @@
 					foreach($notes as $a_note) {
 						for($i=0;$i<$folder[2]+1;$i++)
 							echo "&nbsp;&nbsp;&nbsp;&nbsp;";
-						echo $folder[1] . ": " . $a_note["content"] . "<br />";
+						echo "<b>" . $folder[1] . "</b>: " . $a_note["content"] . "<br />";
 					}
 				}
 		} else {
