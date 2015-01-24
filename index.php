@@ -5,13 +5,13 @@
 	if(isset($_SESSION["user"])) {
 		$user = $_SESSION["user"];
 ?>
-<form action="ver/create.php" method="post" autocomplete="off">
+<form id="create_note" autocomplete="off">
 	Begin typing a search query, and press enter to create a note.<br />
 	<input name="note" onkeydown="search(this.value);char_count(this.value)" onkeyup="search(this.value);char_count(this.value)" maxlength="500" autofocus />
 	<button>Create Note</button>
 	<p id="char_count">3 more characters to submit.</p>
 </form>
-	<select id="folders" name="folders" onchange="request(this.value,document.getElementById('nested').checked);">";
+	<select id="folders" name="folders" onchange="request();">";
 	View notes:
 <?php 
 	// Dynamically generate dropdown box options to select folder
@@ -19,9 +19,8 @@
 ?>
 	</select>
 	<br />Include nested folders and notes
-	<input type="checkbox" id="nested" onchange="request(document.getElementById('folders').value,this.checked);" />
+	<input type="checkbox" id="nested" onchange="request()" />
 	<p id="notes"></p>
-	
 <?php
 	// If user is not signed in, then
 	} else {

@@ -37,6 +37,10 @@
 				if(!preg_match("/[A-Za-z0-9_\.]+@[A-Za-z0-9]+\.[A-Za-z]+/",$data))
 					return false;
 				break;
+			case "integer":	// checking integers
+				if(preg_match("/[^0-9]/",$data))
+					return false;
+				break;
 			case "plain":	// checking plain text
 				if(preg_match("/[^A-Za-z ]/",$data))
 					return false;
