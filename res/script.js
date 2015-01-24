@@ -10,7 +10,7 @@ $(document).ready(function() {
 		
 	}
 	// To count the number of characters (up to 500).
-	char_count = function (query) {
+	char_count = function(query) {
 		
 		var elem = document.getElementById("char_count");
 		
@@ -21,9 +21,8 @@ $(document).ready(function() {
 		
 	}
 	
-	// request() is called on the change of the select elementFromPoint, and on load
+	// request() is called on the change of the select element, and on load
 	request = function() {
-		
         $.ajax({
             type: "GET",
             cache: false,
@@ -33,20 +32,29 @@ $(document).ready(function() {
 				$("#notes").html(msg);
             }
         });
-		
 	}
 	request();
 	
-    $("form[id=create_note]").submit(function(e) {
+	// Call this to create note/folder asynchronously
+    $("form[id=create]").submit(function(e) {
         e.preventDefault();
         $.ajax({
             type: "POST",
             cache: false,
             url: "ver/create.php",
-            data: "note=" + $("input[name=note]").val() + "&folder_id=" + $("select[name=folders]").val(),
+            data: "note=" + $("input[name=note]").val() + "&folder_id=" + $("select[name=folders]").val() + "&type=" + $("input:radio[name=type]:checked").val(),
             success: function(msg) {
 				request(1,false);
             }
         });
-    });     
+    });
+
+	// Call this to create note/folder asynchronously
+    $("input[type=radio][name=type]").change(function(e) {
+		var type = $(this).val();
+		$(".to_change").each(function() {
+			$(this).html(type);
+		});
+    }); 
+	
 });         
