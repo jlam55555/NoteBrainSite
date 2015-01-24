@@ -1,6 +1,8 @@
 <?php
+
+	include "../part/head.php"; ini("NoteBrain");
+	
 	// Check for error ($_GET). If is not set, then redirect back to homepage
-	include "tools.php";
 	if(!isset($_GET["err"]) || ($get_err = tidy($_GET["err"],null,true)) == "")
 		header("Location: ../index.php");
 		
@@ -56,12 +58,11 @@
 			exit();
 	}
 
-	include "../part/head.php"; ini("NoteBrain");
 ?>
 
 <h1>Error</h1>
 <p><?php echo "Error: " . $get_err . " ($err)" ?></p>
-<a href="/notebrain/index.php">Home.</a>
+<a href="/notebrain/index.php">Home</a>.
 <p>You will automatically be redirected to the homepage in <span id="timer">5</span> seconds.</p>
 <button onclick="clearInterval(t); elem.innerHTML = 'STOPPED';">Click to stop timer (debugging).</button>
 

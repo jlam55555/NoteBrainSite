@@ -1,6 +1,9 @@
 <?php
 	// This document is to create a simple unity among the headers of any page. It includes the <head> and enclosing tags, as well as a header.
 	function ini($title) {
+		// Include "tools.php" for some convenient tools
+		include $_SERVER["DOCUMENT_ROOT"] . "/NoteBrain/ver/tools.php";
+		
 		// Get user details if user is logged in
 		session_start();
 		if(isset($_SESSION["user"]))

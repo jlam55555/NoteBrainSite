@@ -10,10 +10,9 @@ try {
 	// Create databases "user.data" and "user.note"
 	$conn = new PDO("mysql:host=$servername", $username, $password);
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	// Delete databases if they already exist
-	$chck = $conn->prepare("SELECT schema_name FROM information_schema.schemata WHERE schema_name='nobr_user' OR schema_name='nobr_note'");
-	$chck->execute();
-	if($chck->fetch(PDO::FETCH_ASSOC) !== false) {
+	// Refresh (delete, recreate) databases if they already exist
+	include "../ver/tools.php";
+	if(get($conn,"SELECT schema_name FROM information_schema.schemata WHERE schema_name='nobr_user' OR schema_name='nobr_note' OR schema_name='nobr_folder'",false) !== false) {
 		$conn->exec("DROP DATABASE nobr_user");
 		$conn->exec("DROP DATABASE nobr_note");
 		$conn->exec("DROP DATABASE nobr_folder");

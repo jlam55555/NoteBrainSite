@@ -48,4 +48,20 @@
 		return true;
 	}
 	
+	/*
+	 *	This function prepares, executes, and returns the result of a PDO (database) query (as an associative array).
+	 *	This can be used to shorten a script with many, database queries.
+	 *	$conn: the connection to run the query on
+	 *	$query: the query to prepare and executes
+	 *	$all: whether or not to fetchAll() or fetch() (default: fetchAll())
+	 */
+	function get($conn,$query,$all=true) {
+		$to_get = $conn->query($query);
+		$to_get->execute();
+		if($all)
+			return $to_get->fetchAll(PDO::FETCH_ASSOC);
+		else
+			return $to_get->fetch(PDO::FETCH_ASSOC);
+	} 
+	
 ?>

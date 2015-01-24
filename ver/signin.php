@@ -25,9 +25,8 @@
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
 		// Find users
-		$user_query = $conn->prepare("SELECT * FROM user_data WHERE user='$user'");
-		$user_query->execute();
-		$user_data = $user_query->fetch(PDO::FETCH_ASSOC);
+		include "tools.php";
+		$user_data = get($conn,"SELECT * FROM user_data WHERE user='$user'",false);
 		
 		// If no user is found, redirect to error page
 		if($user_data == null) {

@@ -20,6 +20,7 @@
 	
 	// Load notes
 	include "../ver/server.php";
+	include "../ver/tools.php";
 	try {
 		// Get notes and note structures
 		$note = new PDO("mysql:host=$servername;dbname=nobr_note",$username,$password);
@@ -31,9 +32,7 @@
 		$parent_id = $id;
 		$crumb_trail = "";
 		while(true) {
-			$trail_query = $note->prepare("SELECT * FROM nobr_folder.$user WHERE id=$parent_id");
-			$trail_query->execute();
-			$trail = $trail_query->fetch(PDO::FETCH_ASSOC);
+			$trail = get($note,"SELECT * FROM nobr_folder.$user WHERE id=$parent_id",false);
 			$crumb_trail = $trail["name"] . " > " . $crumb_trail;
 			$parent_id = $trail["parent_id"];
 			if($parent_id == 0)
@@ -44,17 +43,12 @@
 		// Print notes and note structures
 		if($nested) {
 			include "../res/loopDB.php";
-			
-			$notes_query = $note->prepare("SELECT * FROM $user WHERE folder_id=$id");
-			$notes_query->execute();
-			$notes = $notes_query->fetchAll(PDO::FETCH_ASSOC);
+			$notes = get($note,"SELECT * FROM $user WHERE folder_id=$id");
 			foreach($notes as $a_note)
 				echo $a_note["content"] . "<br />";
 			if(gettype($array = loopDB(query($id),0)) == "array")
 				foreach($array as $folder) {
-					$notes_query = $note->prepare("SELECT * FROM $user WHERE folder_id=" . $folder[0]);
-					$notes_query->execute();
-					$notes = $notes_query->fetchAll(PDO::FETCH_ASSOC);
+					$notes = get($note,"SELECT * FROM $user WHERE folder_id=" . $folder[0]);
 					foreach($notes as $a_note) {
 						for($i=0;$i<$folder[2]+1;$i++)
 							echo "&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -62,10 +56,7 @@
 					}
 				}
 		} else {
-			$structure_query = $note->prepare("SELECT * FROM $user FULL JOIN nobr_folder.$user ON nobr_folder.$user.id=folder_id WHERE folder_id=$id");
-			$structure_query->execute();
-			$structure = $structure_query->fetchAll(PDO::FETCH_ASSOC);
-			foreach($structure as $note)
+			foreach(get($note,"SELECT * FROM $user FULL JOIN nobr_folder.$user ON nobr_folder.$user.id=folder_id WHERE folder_id=$id") as $note)
 				echo $note["content"] . "<br />";
 		}
 	} catch(PDOException $e) {

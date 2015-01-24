@@ -41,9 +41,7 @@
 	try {
 		$conn = new PDO("mysql:host=$servername;dbname=nobr_user", $username, $password);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$users = $conn->prepare("SELECT * FROM user_data WHERE user='$user'");
-		$users->execute();
-		if($users->fetch(PDO::FETCH_ASSOC) !== false) {
+		if(get($conn,"SELECT * FROM user_data WHERE user='$user'",false) !== false) {
 			header("Location: error.php?err=signup4");
 			exit();
 		}

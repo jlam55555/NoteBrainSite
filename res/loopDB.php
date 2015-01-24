@@ -3,10 +3,7 @@
 	// Get all folders
 	function query($parent_id) {
 		global $user, $conn;
-		$sql = "SELECT * FROM $user WHERE parent_id=$parent_id ORDER BY parent_id,name";
-		$structure_query = $conn->prepare($sql);
-		$structure_query->execute();
-		return $structure_query->fetchAll(PDO::FETCH_ASSOC);
+		return get($conn,"SELECT * FROM $user WHERE parent_id=$parent_id ORDER BY parent_id,name");
 	}
 	
 	// Loop through the DB folders and return an array
