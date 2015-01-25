@@ -1,5 +1,13 @@
 <?php
-
+	
+	
+	if(!isset($user)) {
+		session_start();
+		$user = $_SESSION["user"];
+	}
+	if(!function_exists("tidy"))
+		include $_SERVER["DOCUMENT_ROOT"] . "/NoteBrain/ver/tools.php";
+	
 	// Get all folders
 	function query($parent_id) {
 		global $user, $conn;

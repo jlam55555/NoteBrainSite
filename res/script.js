@@ -1,4 +1,5 @@
-var search, char_count, request;
+// Setting methods so that they aren't undefined.
+var search, char_count, request, select;
 
 $(document).ready(function() {
 	/*
@@ -35,6 +36,23 @@ $(document).ready(function() {
 	}
 	request();
 	
+	// select() is called on creation of folder, and on load
+	select = function(to_select) {
+		$.ajax({
+			type: "POST",
+			cache: false,
+			url: "part/select_folder.php",
+			data: "",
+			success: function(msg) {
+				$("#folders").html(msg);
+				$("option:selected").removeAttr("selected");
+				$("option[value=" + to_select + "]").attr("selected","selected");
+				request();
+			}
+		});
+	}
+	select(1);
+	
 	// Call this to create note/folder asynchronously
     $("form[id=create]").submit(function(e) {
         e.preventDefault();
@@ -45,6 +63,8 @@ $(document).ready(function() {
             data: "note=" + $("input[name=note]").val() + "&folder_id=" + $("select[name=folders]").val() + "&type=" + $("input:radio[name=type]:checked").val(),
             success: function(msg) {
 				request(1,false);
+				if($("input:radio[name=type]:checked").val() == "folder")
+					select(msg);
             }
         });
     });

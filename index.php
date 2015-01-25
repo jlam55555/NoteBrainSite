@@ -13,8 +13,8 @@
 	Folder <input type="radio" name="type" value="folder" />
 	<p id="char_count">3 more characters to submit.</p>
 </form>
-	<select id="folders" name="folders" onchange="request();">";
 	View notes:
+	<select id="folders" name="folders" onchange="request();">";
 <?php 
 	// Dynamically generate dropdown box options to select folder
 	include "part/select_folder.php";
