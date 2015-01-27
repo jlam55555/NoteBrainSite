@@ -34,9 +34,10 @@
 		$first = true;
 		while(true) {
 			$trail = get($note,"SELECT * FROM nobr_folder.$user WHERE id=$parent_id",false);
-			if($first)
-				$crumb_trail = $trail["id"] . " > " . $crumb_trail;
-			else
+			if($first) {
+				$crumb_trail = $trail["name"] . " > " . $crumb_trail;
+				$first = false;
+			} else
 				$crumb_trail = "<button onclick=\"select(" . $trail["id"] . ")\">" . $trail["name"] . "</button> > " . $crumb_trail;
 			$parent_id = $trail["parent_id"];
 			if($parent_id == 0)
@@ -45,27 +46,25 @@
 		echo $crumb_trail . "<br /><br />";
 		
 		// Print notes and note structures
+		include "../res/loopDB.php";
+		$notes = get($note,"SELECT * FROM $user WHERE folder_id=$id");
+		foreach($notes as $a_note)
+			echo "<span id=\"" . $a_note["id"] . "\">" . $a_note["content"] . "<br /></span>";
+		
 		if($nested) {
-			include "../res/loopDB.php";
-			$notes = get($note,"SELECT * FROM $user WHERE folder_id=$id");
-			foreach($notes as $a_note)
-				echo $a_note["content"] . "<br />";
+			// Print nested structures
 			if(gettype($array = loopDB(query($id),0)) == "array")
 				foreach($array as $folder) {
 					$notes = get($note,"SELECT * FROM $user WHERE folder_id=" . $folder[0]);
 					foreach($notes as $a_note) {
 						for($i=0;$i<$folder[2]+1;$i++)
 							echo "&nbsp;&nbsp;&nbsp;&nbsp;";
-						echo "<b>" . $folder[1] . "</b>: " . $a_note["content"] . "<br />";
+						echo "<span id=\"" . $a_note["id"] . "\"><b>" . $folder[1] . "</b>: " . $a_note["content"] . "<br /></span>";
 					}
 				}
-		} else {
-			foreach(get($note,"SELECT * FROM $user FULL JOIN nobr_folder.$user ON nobr_folder.$user.id=folder_id WHERE folder_id=$id") as $note)
-				echo $note["content"] . "<br />";
 		}
 	} catch(PDOException $e) {
-		echo $e;
-		//header("Location: ../ver/error.php?err=pdoexception&msg=" . str_replace("\n"," ",$e));
+		header("Location: ../ver/error.php?err=pdoexception&msg=" . str_replace("\n"," ",$e));
 		exit();
 	}
 		
