@@ -3,12 +3,25 @@
 	function ini($title) {
 		// Include "tools.php" for some convenient tools
 		include $_SERVER["DOCUMENT_ROOT"] . "/NoteBrain/ver/tools.php";
+		include $_SERVER["DOCUMENT_ROOT"] . "/NoteBrain/ver/server.php";
 		
 		// Get user details if user is logged in
 		session_start();
-		if(isset($_SESSION["user"]))
-			$user_details = "<p>User: " . $_SESSION["user"] . " | <a href=\"/notebrain/res/signout.php\">Sign Out</a></p>";
-		else
+		if(isset($_SESSION["user"])) {
+			$user = $_SESSION["user"];
+			try {
+				$conn = new PDO("mysql:host=$servername;dbname=nobr_user",$username,$password);
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$data = get($conn,"SELECT first_name,last_name,email FROM user_data WHERE user='$user'",false);
+				$first_name = $data["first_name"];
+				$last_name = $data["last_name"];
+				$email = $data["email"];
+			} catch(PDOException $e) {
+				header("ver/error.php?err=PDOException&msg=$e");
+				exit();
+			}
+			$user_details = "<p>Welcome, $first_name $last_name. (" . $_SESSION["user"] . " $email) | <a href=\"/notebrain/res/signout.php\">Sign Out</a> | <a href=\"/notebrain/ver/delete_user.php\" onclick=\"del_user();return false;\">Delete User</a> Verify your password: <input type=\"password\" id=\"delete_verification\" /></p>";
+		} else
 			$user_details = "";
 ?>
 <!doctype html>

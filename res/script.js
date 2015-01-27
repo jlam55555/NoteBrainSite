@@ -1,5 +1,5 @@
 // Setting methods so that they aren't undefined.
-var search, char_count, request, select, del;
+var search, char_count, request, select, del, del_user;
 
 $(document).ready(function() {
 	/*
@@ -78,13 +78,31 @@ $(document).ready(function() {
     });
 	
 	del = function(id) {
-		 $.ajax({
+		$.ajax({
             type: "POST",
             cache: false,
             url: "ver/delete.php",
             data: "id=" + id,
             success: function(msg) {
 				request();
+            }
+        });
+	}
+	
+	// Call this function to verify the user password before deleting an account
+	del_user = function() {
+		if(!confirm("Are you sure you want to delete this user?") || $("#delete_verification").val() == "")
+			return;
+		$.ajax({
+            type: "POST",
+            cache: false,
+            url: "ver/delete_user.php",
+            data: "pass=" + $("#delete_verification").val(),
+            success: function(msg) {
+				if(msg == "true")
+					window.location = "res/signout.php";
+				else
+					alert("Password was incorrect.");
             }
         });
 	}
