@@ -45,11 +45,24 @@
 		}
 		echo $crumb_trail . "<br /><br />";
 		
+		// Create table
+?>
+	<table>
+		<thead>
+			<tr>
+				<?php if($nested) echo "<th>Folder</th>"; ?>
+				<th>Note</th>
+				<th>Delete?</th>
+			</tr>
+		</thead>
+		<tbody>
+<?php
 		// Print notes and note structures
 		include "../res/loopDB.php";
 		$notes = get($note,"SELECT * FROM $user WHERE folder_id=$id");
+		$folder_td = ($nested) ? "<td><br /></td>" : "";
 		foreach($notes as $a_note)
-			echo "<span id=\"" . $a_note["id"] . "\">" . $a_note["content"] . "<br /></span>";
+			echo "<tr id=\"" . $a_note["id"] . "\">$folder_td<td>" . $a_note["content"] . "</td><td><button onclick=\"delete(" . $a_note["id"] . ")\">Delete</button></td></tr>";
 		
 		if($nested) {
 			// Print nested structures
@@ -59,10 +72,24 @@
 					foreach($notes as $a_note) {
 						for($i=0;$i<$folder[2]+1;$i++)
 							echo "&nbsp;&nbsp;&nbsp;&nbsp;";
-						echo "<span id=\"" . $a_note["id"] . "\"><b>" . $folder[1] . "</b>: " . $a_note["content"] . "<br /></span>";
+						echo "<tr id=\"" . $a_note["id"] . "\"><td>" . $folder[1] . "</td><td>" . $a_note["content"] . "</td><td><button onclick=\"delete(" . $a_note["id"] . ")\">Delete</button></td></tr>";
 					}
 				}
 		}
+		
+?>
+	
+		</tbody>
+		<tfoot>
+			<tr>
+				<?php if($nested) echo "<th>Folder</th>"; ?>
+				<th>Note</th>
+				<th>Delete?</th>
+			</tr>
+		</tfoot>
+	</table>
+	
+<?php
 	} catch(PDOException $e) {
 		header("Location: ../ver/error.php?err=pdoexception&msg=" . str_replace("\n"," ",$e));
 		exit();
