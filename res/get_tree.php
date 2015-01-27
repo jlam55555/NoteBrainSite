@@ -33,7 +33,7 @@
 		$crumb_trail = "";
 		while(true) {
 			$trail = get($note,"SELECT * FROM nobr_folder.$user WHERE id=$parent_id",false);
-			$crumb_trail = $trail["name"] . " > " . $crumb_trail;
+			$crumb_trail = "<button onclick=\"select(" . $trail["id"] . ")\">" . $trail["name"] . "</button> > " . $crumb_trail;
 			$parent_id = $trail["parent_id"];
 			if($parent_id == 0)
 				break;
