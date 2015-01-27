@@ -31,9 +31,13 @@
 		// Print "cookie crumb trail" for navigational ease
 		$parent_id = $id;
 		$crumb_trail = "";
+		$first = true;
 		while(true) {
 			$trail = get($note,"SELECT * FROM nobr_folder.$user WHERE id=$parent_id",false);
-			$crumb_trail = "<button onclick=\"select(" . $trail["id"] . ")\">" . $trail["name"] . "</button> > " . $crumb_trail;
+			if($first)
+				$crumb_trail = $trail["id"] . " > " . $crumb_trail;
+			else
+				$crumb_trail = "<button onclick=\"select(" . $trail["id"] . ")\">" . $trail["name"] . "</button> > " . $crumb_trail;
 			$parent_id = $trail["parent_id"];
 			if($parent_id == 0)
 				break;
