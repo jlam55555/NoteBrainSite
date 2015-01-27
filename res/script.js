@@ -1,5 +1,5 @@
 // Setting methods so that they aren't undefined.
-var search, char_count, request, select;
+var search, char_count, request, select, del;
 
 $(document).ready(function() {
 	/*
@@ -62,7 +62,7 @@ $(document).ready(function() {
             url: "ver/create.php",
             data: "note=" + $("input[name=note]").val() + "&folder_id=" + $("select[name=folders]").val() + "&type=" + $("input:radio[name=type]:checked").val(),
             success: function(msg) {
-				request(1,false);
+				request();
 				if($("input:radio[name=type]:checked").val() == "folder")
 					select(msg);
             }
@@ -75,6 +75,18 @@ $(document).ready(function() {
 		$(".to_change").each(function() {
 			$(this).html(type);
 		});
-    }); 
+    });
 	
-});         
+	del = function(id) {
+		 $.ajax({
+            type: "POST",
+            cache: false,
+            url: "ver/delete.php",
+            data: "id=" + id,
+            success: function(msg) {
+				request();
+            }
+        });
+	}
+	
+});

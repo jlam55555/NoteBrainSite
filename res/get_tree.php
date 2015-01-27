@@ -62,7 +62,7 @@
 		$notes = get($note,"SELECT * FROM $user WHERE folder_id=$id");
 		$folder_td = ($nested) ? "<td><br /></td>" : "";
 		foreach($notes as $a_note)
-			echo "<tr id=\"" . $a_note["id"] . "\">$folder_td<td>" . $a_note["content"] . "</td><td><button onclick=\"delete(" . $a_note["id"] . ")\">Delete</button></td></tr>";
+			echo "<tr id=\"" . $a_note["id"] . "\">$folder_td<td>" . $a_note["content"] . "</td><td><button onclick=\"del(" . $a_note["id"] . ")\">Delete</button></td></tr>";
 		
 		if($nested) {
 			// Print nested structures
@@ -72,7 +72,7 @@
 					foreach($notes as $a_note) {
 						for($i=0;$i<$folder[2]+1;$i++)
 							echo "&nbsp;&nbsp;&nbsp;&nbsp;";
-						echo "<tr id=\"" . $a_note["id"] . "\"><td>" . $folder[1] . "</td><td>" . $a_note["content"] . "</td><td><button onclick=\"delete(" . $a_note["id"] . ")\">Delete</button></td></tr>";
+						echo "<tr id=\"" . $a_note["id"] . "\"><td>" . $folder[1] . "</td><td>" . $a_note["content"] . "</td><td><button onclick=\"del(" . $a_note["id"] . ")\">Delete</button></td></tr>";
 					}
 				}
 		}
