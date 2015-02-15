@@ -27,67 +27,66 @@
 	// If user is not signed in, then
 	} else {
 ?>
-<div id="sign_in_up">
-	<!-- Allow users to sign in if they have an account -->
-	<div id="sign_in">
-		<h3>Sign In</h3>
-		<form action="ver/signin.php" method="post">
-		<table>
+
+<!-- Allow users to sign in if they have an account -->
+<div id="sign_in">
+	<h3>Sign In</h3>
+	<form action="ver/signin.php" method="post">
+	<table>
+		<tr>
+			<td>Username</td>
+			<td><input name="user" type="text" /></td>
+		</tr>
+		<tr>
+			<td>Password</td>
+			<td><input name="pass" type="password" /></td>
+		</tr>
+		<tr>
+			<td colspan="2"><button>Sign In</button></td>
+		</tr>
+	</table>
+	</form>
+</div>
+
+<div id="sign_up" style="display:none">
+	<h3>Sign Up</h3>
+	<form action="ver/signup.php" method="post">
+	<table>
+		<tbody>
+			<tr>
+				<td>First Name</td>
+				<td><input name="fnam" type="text" /></td>
+			</tr>
+			<tr>
+				<td>Last Name</td>
+				<td><input name="lnam" type="text" /></td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td><input name="mail" type="email" /></td>
+			</tr>
 			<tr>
 				<td>Username</td>
 				<td><input name="user" type="text" /></td>
 			</tr>
 			<tr>
 				<td>Password</td>
-				<td><input name="pass" type="password" /></td>
+				<td><input name="pas1" type="password" /></td>
 			</tr>
 			<tr>
-				<td colspan="2"><button>Sign In</button></td>
+				<td>Verify Password</td>
+				<td><input name="pas2" type="password" /></td>
 			</tr>
-		</table>
-		</form>
-	</div><!--
-	
-	This comment is to remove the whitespace.
-	Allow users to sign up if not already.
-	
- --><div id="sign_up">
-		<h3>Or, Sign Up</h3>
-		<form action="ver/signup.php" method="post">
-		<table>
-			<tbody>
-				<tr>
-					<td>First Name</td>
-					<td><input name="fnam" type="text" /></td>
-				</tr>
-				<tr>
-					<td>Last Name</td>
-					<td><input name="lnam" type="text" /></td>
-				</tr>
-				<tr>
-					<td>Email</td>
-					<td><input name="mail" type="email" /></td>
-				</tr>
-				<tr>
-					<td>Username</td>
-					<td><input name="user" type="text" /></td>
-				</tr>
-				<tr>
-					<td>Password</td>
-					<td><input name="pas1" type="password" /></td>
-				</tr>
-				<tr>
-					<td>Verify Password</td>
-					<td><input name="pas2" type="password" /></td>
-				</tr>
-				<tr>
-					<td colspan="2"><button type="submit">Sign Up</button></td>
-				</tr>
-			</tbody>
-		</table>
-		</form>
-	</div>
+			<tr>
+				<td colspan="2"><button type="submit">Sign Up</button></td>
+			</tr>
+		</tbody>
+	</table>
+	</form>
 </div>
+
+<button onclick="$('#sign_up, #sign_in').toggle();this.innerHTML = (this.innerHTML == 'Or, Sign Up') ? 'Or, Sign In' : 'Or, Sign Up';">Or, Sign Up</button>
+
 <?php 
 	}
 	include "part/foot.php";

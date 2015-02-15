@@ -15,16 +15,20 @@
 	font-family: SSP;
 	src: url(font/SourceSansPro-ExtraLight.otf);
 }
-html, head {
+h1, h3 {
+	color: #0490A9;
+}
+head, html {
 	font-family: SSP;
 	font-size: 18px;
 	color: #4E4D53;
 	background-color: #FAFAF8;
-	padding: 20px;
-	height: 100%;
+	padding: 20px 20px 0 20px;
 }
-h1, h3 {
-	color: #0490A9;
+hr {
+	border: none;
+	height: 1px;
+	background-color: #4E4D53;
 }
 th, td {
 	padding: 10px 5px;
@@ -45,22 +49,14 @@ h1 {
 #all {
 	min-height: 100%;
 	position: relative;
-	padding-bottom: 100px;
+	margin: 0;
+	padding-bottom: 150px;
 }
 #footer {
-	height: 100px;
+	height: 120px;
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	text-align: center;
-}
-
-/* Body Styles */
-#sign_in_up {
-	width: 100%;
-}
-#sign_in, #sign_up {
-	width: 50%;
-	display: inline-block;
 }
