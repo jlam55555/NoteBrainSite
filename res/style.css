@@ -9,19 +9,29 @@
  *	Color scheme courtesy of http://www.colorschemer.com/schemes/viewscheme.php?id=10323
  */
 
+/* Overall Styles */
 /* Creating the font (local file, not pre-loaded font. */
 @font-face {
 	font-family: SSP;
 	src: url(font/SourceSansPro-ExtraLight.otf);
 }
-
-/* Set default font */
 html, head {
 	font-family: SSP;
 	background-color: #FAFAF8;
 	color: #4E4D53;
+	padding: 20px;
 }
-
 h1, h3{
 	color: #0490A9;
+}
+
+/* Top styles */
+h1 {
+	font-size: 75px;
+	margin: 0 20px 20px 0;
+	display: inline-block;
+}
+#desc {
+	display: inline-block;
+	font-size: 20px;
 }

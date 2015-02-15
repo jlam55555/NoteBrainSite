@@ -39,7 +39,7 @@
 	<body>
 		<div id="header">
 			<h1>NoteBrain</h1>
-			<p>Quick, easy notes for new ideas or facts - simple, fast creation and search all in one for convenient storage; Made for studying, sharing and building on ideas, and research for the multitasking mind.</p>
+			<span id="desc">Quick, Easy notes - Simple, quick Creation - Convenient, Relevant Search<br />Built for studying, sharing, research, and building on ideas for the multitasking mind.</span>
 			<?php echo $user_details ?>
 			<hr />
 		</div>
