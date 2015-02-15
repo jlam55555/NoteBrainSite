@@ -17,8 +17,9 @@
 }
 html, head {
 	font-family: SSP;
-	background-color: #FAFAF8;
+	font-size: 18px;
 	color: #4E4D53;
+	background-color: #FAFAF8;
 	padding: 20px;
 	height: 100%;
 }
