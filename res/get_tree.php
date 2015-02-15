@@ -28,29 +28,33 @@
 		$conn = new PDO("mysql:host=$servername;dbname=nobr_folder",$username,$password);
 		$conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 		
+		// Print "Note Structure"
+		echo "<h3>Note Structure</h3>";
+		
 		// Print "cookie crumb trail" for navigational ease
 		$parent_id = $id;
 		$crumb_trail = "";
 		$first = true;
 		while(true) {
 			$trail = get($note,"SELECT * FROM nobr_folder.$user WHERE id=$parent_id",false);
+			$parent_id = ($trail["parent_id"] == 0) ? false : $trail["parent_id"];
 			if($first) {
-				$crumb_trail = $trail["name"] . " > " . $crumb_trail;
+				$crumb_trail = (!$parent_id ? "<strong>" : "") . $trail["name"] . (!$parent_id ? "</strong>" : "") . " > " . $crumb_trail;
 				$first = false;
-			} else
-				$crumb_trail = "<button onclick=\"select(" . $trail["id"] . ")\">" . $trail["name"] . "</button> > " . $crumb_trail;
-			$parent_id = $trail["parent_id"];
-			if($parent_id == 0)
+			} else {
+				$crumb_trail = "<button onclick=\"select(" . $trail["id"] . ")\">" . (!$parent_id ? "<strong>" : "") . $trail["name"] . (!$parent_id ? "</strong>" : "") .  "</button> > " . $crumb_trail;
+			}
+			if(!$parent_id)
 				break;
 		}
 		echo $crumb_trail . "<br /><br />";
 		
 		// Create table
 ?>
-	<table>
+	<table id="show_notes_table">
 		<thead>
 			<tr>
-				<?php if($nested) echo "<th>Folder</th>"; ?>
+				<th>Folder</th>
 				<th>Note</th>
 				<th>Delete?</th>
 			</tr>
@@ -60,9 +64,8 @@
 		// Print notes and note structures
 		include "../res/loopDB.php";
 		$notes = get($note,"SELECT * FROM $user WHERE folder_id=$id");
-		$folder_td = ($nested) ? "<td><br /></td>" : "";
 		foreach($notes as $a_note)
-			echo "<tr id=\"" . $a_note["id"] . "\">$folder_td<td>" . $a_note["content"] . "</td><td><button onclick=\"del(" . $a_note["id"] . ")\">Delete</button></td></tr>";
+			echo "<tr id=\"" . $a_note["id"] . "\"><td>---</td><td>" . $a_note["content"] . "</td><td><button onclick=\"del(" . $a_note["id"] . ")\">Delete</button></td></tr>";
 		
 		if($nested) {
 			// Print nested structures
@@ -82,7 +85,7 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<?php if($nested) echo "<th>Folder</th>"; ?>
+				<th>Folder</th>
 				<th>Note</th>
 				<th>Delete?</th>
 			</tr>

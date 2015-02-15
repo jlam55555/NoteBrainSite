@@ -5,24 +5,31 @@
 	if(isset($_SESSION["user"])) {
 		$user = $_SESSION["user"];
 ?>
-<form id="create" autocomplete="off">
-	Begin typing a search query, and press enter to create a <span class="to_change">note</span>.<br />
-	<input name="note" onkeydown="search(this.value);char_count(this.value)" onkeyup="search(this.value);char_count(this.value)" maxlength="500" autofocus />
-	<button>Create <span class="to_change">note</span></button><br />
-	Note <input type="radio" name="type" value="note" checked /> |
-	Folder <input type="radio" name="type" value="folder" />
-	<p id="char_count">3 more characters to submit.</p>
-</form>
-	View notes:
+<div id="show_options">
+	<h3>Create a <span class="to_change">note</span></h3>
+	<form id="create" autocomplete="off">
+		Begin typing a search query, and press enter to create a <span class="to_change">note</span>.<br />
+		<input name="note" onkeydown="search(this.value);char_count(this.value)" onkeyup="search(this.value);char_count(this.value)" maxlength="500" autofocus />
+		<button>Create <span class="to_change">note</span></button><br />
+		Note <input type="radio" name="type" value="note" checked /> |
+		Folder <input type="radio" name="type" value="folder" />
+		<p id="char_count">3 more characters to submit.</p>
+	</form>
+	<h3>Viewing Options</h3>
+	View folder:
 	<select id="folders" name="folders" onchange="request();">";
-<?php 
-	// Dynamically generate dropdown box options to select folder
-	include "part/select_folder.php";
-?>
+	<?php 
+		// Dynamically generate dropdown box options to select folder
+		include "part/select_folder.php";
+	?>
 	</select>
 	<br />Include nested folders and notes
 	<input type="checkbox" id="nested" onchange="request()" />
+</div><!--
+	This is to remove whitespace
+--><div id="show_notes">
 	<p id="notes"></p>
+</div>
 <?php
 	// If user is not signed in, then
 	} else {
