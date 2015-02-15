@@ -20,6 +20,7 @@ html, head {
 	background-color: #FAFAF8;
 	color: #4E4D53;
 	padding: 20px;
+	height: 100%;
 }
 h1, h3{
 	color: #0490A9;
@@ -34,4 +35,19 @@ h1 {
 #desc {
 	display: inline-block;
 	font-size: 20px;
+}
+
+/* Bottom Styles */
+#all {
+	min-height: 100%;
+	position: relative;
+	padding-bottom: 100px;
+}
+#footer {
+	height: 100px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	text-align: center;
 }

@@ -37,6 +37,7 @@
 		<script src="/NoteBrain/res/script.js"></script>
 	</head>
 	<body>
+	<div id="all">
 		<div id="header">
 			<h1>NoteBrain</h1>
 			<span id="desc">Quick, Easy notes - Simple, quick Creation - Convenient, Relevant Search<br />Built for studying, sharing, research, and building on ideas for the multitasking mind.</span>
