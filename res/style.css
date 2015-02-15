@@ -1,4 +1,15 @@
-/* Font courtesy of: http://www.fontsquirrel.com/fonts/source-sans-pro */
+/*
+ *	Font courtesy of: http://www.fontsquirrel.com/fonts/source-sans-pro 
+ *	Color scheme:
+ *		#FAFAF8 (white)
+ *		#4E4D53 (black)
+ *		#0490A9 (blue)
+ *		#FD616C	(red)
+ *		#FEF167	(yellow)
+ *	Color scheme courtesy of http://www.colorschemer.com/schemes/viewscheme.php?id=10323
+ */
+
+/* Creating the font (local file, not pre-loaded font. */
 @font-face {
 	font-family: SSP;
 	src: url(font/SourceSansPro-ExtraLight.otf);
@@ -7,4 +18,10 @@
 /* Set default font */
 html, head {
 	font-family: SSP;
+	background-color: #FAFAF8;
+	color: #4E4D53;
+}
+
+h1, h3{
+	color: #0490A9;
 }
