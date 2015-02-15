@@ -23,8 +23,11 @@ html, head {
 	padding: 20px;
 	height: 100%;
 }
-h1, h3{
+h1, h3 {
 	color: #0490A9;
+}
+th, td {
+	padding: 10px 5px;
 }
 
 /* Top styles */
@@ -51,4 +54,13 @@ h1 {
 	left: 0;
 	right: 0;
 	text-align: center;
+}
+
+/* Body Styles */
+#sign_in_up {
+	width: 100%;
+}
+#sign_in, #sign_up {
+	width: 50%;
+	display: inline-block;
 }
