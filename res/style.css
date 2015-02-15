@@ -1,3 +1,10 @@
-/*
-	I will add styles later
-*/
+/* Font courtesy of: http://www.fontsquirrel.com/fonts/source-sans-pro */
+@font-face {
+	font-family: SSP;
+	src: url(font/SourceSansPro-ExtraLight.otf);
+}
+
+/* Set default font */
+html, head {
+	font-family: SSP;
+}
