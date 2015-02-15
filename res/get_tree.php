@@ -64,8 +64,11 @@
 		// Print notes and note structures
 		include "../res/loopDB.php";
 		$notes = get($note,"SELECT * FROM $user WHERE folder_id=$id");
-		foreach($notes as $a_note)
+		$has_note = false;
+		foreach($notes as $a_note) {
 			echo "<tr id=\"" . $a_note["id"] . "\"><td>---</td><td>" . $a_note["content"] . "</td><td><button onclick=\"del(" . $a_note["id"] . ")\">Delete</button></td></tr>";
+			$has_note = true;
+		}
 		
 		if($nested) {
 			// Print nested structures
@@ -76,8 +79,12 @@
 						for($i=0;$i<$folder[2]+1;$i++)
 							echo "&nbsp;&nbsp;&nbsp;&nbsp;";
 						echo "<tr id=\"" . $a_note["id"] . "\"><td>" . $folder[1] . "</td><td>" . $a_note["content"] . "</td><td><button onclick=\"del(" . $a_note["id"] . ")\">Delete</button></td></tr>";
+						$has_note = true;
 					}
 				}
+		}
+		if(!$has_note) {
+			echo "<tr><td colspan=\"3\">No notes in the specified directory.</td></tr>";
 		}
 		
 ?>
