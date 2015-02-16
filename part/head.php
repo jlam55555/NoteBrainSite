@@ -40,7 +40,7 @@
 	<div id="all">
 		<div id="header">
 			<h1>NoteBrain</h1>
-			<span id="desc"><strong>Quick, Easy notes - Simple, Quick Creation - Convenient, Relevant Search</strong><br />Built for studying, sharing, research, and invention for the multitasking mind.</span>
+			<span id="desc"><span style="font-family:SSPSBold">Quick, Easy notes - Simple, Quick Creation - Convenient, Relevant Search</span><br />Built for studying, sharing, research, and invention for the multitasking mind.</span>
 			<?php echo $user_details ?>
 			<hr />
 		</div>
