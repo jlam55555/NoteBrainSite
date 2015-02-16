@@ -15,12 +15,11 @@
 				$data = get($conn,"SELECT first_name,last_name,email FROM user_data WHERE user='$user'",false);
 				$first_name = $data["first_name"];
 				$last_name = $data["last_name"];
-				$email = $data["email"];
 			} catch(PDOException $e) {
 				header("ver/error.php?err=PDOException&msg=$e");
 				exit();
 			}
-			$user_details = "<p>Welcome, $first_name $last_name. (" . $_SESSION["user"] . " $email) | <a href=\"/notebrain/res/signout.php\">Sign Out</a> | <a href=\"/notebrain/ver/delete_user.php\" onclick=\"del_user();return false;\">Delete User</a> Verify your password: <input type=\"password\" id=\"delete_verification\" /></p>";
+			$user_details = "<div id=\"user_det\">" . $_SESSION["user"] . "<br />$first_name $last_name<br /><a href=\"/notebrain/res/signout.php\">Sign Out</a> | <a href=\"/notebrain/ver/delete_user.php\" onclick=\"del_user();return false;\">Delete User</a></div>";
 		} else
 			$user_details = "";
 ?>
@@ -39,9 +38,11 @@
 	<body>
 	<div id="all">
 		<div id="header">
-			<h1>NoteBrain</h1>
-			<span id="desc"><span style="font-family:SSPSBold">Quick, Easy notes - Simple, Quick Creation - Convenient, Relevant Search</span><br />Built for studying, sharing, research, and invention for the multitasking mind.</span>
-			<?php echo $user_details ?>
+			<div id="header_1">
+				<h1>NoteBrain</h1>
+				<span id="desc"><span style="font-family:SSPSBold">Quick, Easy notes - Simple, Quick Creation - Convenient, Relevant Search</span><br />Built for studying, sharing, research, and invention for the multitasking mind.</span>
+			</div><!--
+		 --><?php echo $user_details ?>
 			<hr />
 		</div>
 <?php

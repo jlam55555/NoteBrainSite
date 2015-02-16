@@ -55,6 +55,16 @@ h1 {
 	display: inline-block;
 	font-size: 20px;
 }
+#header_1 {
+	width: 80%;
+	display: inline-block;
+}
+#user_det {
+	width: 20%;
+	height: 100px;
+	text-align: right;
+	display: inline-block;
+}
 
 /* Bottom Styles */
 #all {
