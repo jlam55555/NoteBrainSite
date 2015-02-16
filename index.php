@@ -7,12 +7,11 @@
 ?>
 <div id="search_create_field">
 	<form id="create" autocomplete="off">
-		Begin typing a search query, and press enter to create a <span class="to_change">note</span>.<br />
+		Begin typing a search query, and press enter to create a <span class="to_change">note</span>. <span id="char_count">3 more characters to submit.</span><br />
 		<input id="note" name="note" onkeydown="search(this.value);char_count(this.value)" onkeyup="search(this.value);char_count(this.value)" maxlength="500" autofocus /><!--
 	 --><button id="note_button">Create <span class="to_change">note</span></button><br />
 		Note <input type="radio" name="type" value="note" checked /> |
 		Folder <input type="radio" name="type" value="folder" />
-		<p id="char_count">3 more characters to submit.</p>
 	</form>
 </div>
 <div id="show_options">

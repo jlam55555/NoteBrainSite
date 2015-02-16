@@ -109,12 +109,20 @@ h1 {
 	padding: 50px 0;
 }
 #show_options, #show_notes {
-	width: 50%;
 	display: inline-block;
 	vertical-align: text-top;
 }
+#show_options {
+	width: 30%;
+}
+#show_notes {
+	width: 70%;
+}
 #show_notes > p {
 	margin: 0;
+}
+#show_notes_table {
+	width: 100%;
 }
 #show_notes_table th:nth-child(1) {
 	width: 10%;
