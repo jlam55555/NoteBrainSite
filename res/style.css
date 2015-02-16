@@ -90,6 +90,24 @@ h1 {
 }
 
 /* Body Styles */
+#note{
+	height: 32px;
+	font-size: 30px;
+	font-family: SSP;
+	width: 83%;
+	border-width: 1%;
+	vertical-align: middle;
+}
+#note_button {
+	padding: 10px 0;
+	width: 13%;
+	border-width: 1%;
+}
+#search_create_field {
+	width: 80%;
+	margin: 0 auto;
+	padding: 50px 0;
+}
 #show_options, #show_notes {
 	width: 50%;
 	display: inline-block;
