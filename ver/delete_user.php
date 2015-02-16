@@ -16,9 +16,11 @@
 		$data = get($conn,"SELECT pass FROM user_data WHERE user='$user'",false);
 		if(password_verify($_POST["pass"],$data["pass"]))
 			echo "true";
-		else
+		else {
 			echo "false";
-			
+			exit();
+		}
+		
 		$conn->exec("DELETE FROM user_data WHERE user='$user'");
 		$conn->exec("DROP TABLE nobr_note.$user");
 		$conn->exec("DROP TABLE nobr_folder.$user");

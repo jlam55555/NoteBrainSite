@@ -65,6 +65,13 @@ h1 {
 	text-align: right;
 	display: inline-block;
 }
+#ver_del {
+	padding: 20px;
+	background-color: white;
+	position: absolute;
+	top: 0;
+	border: 1px solid black;
+}
 
 /* Bottom Styles */
 #all {

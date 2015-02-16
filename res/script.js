@@ -1,5 +1,5 @@
 // Setting methods so that they aren't undefined.
-var search, char_count, request, select, del, del_user;
+var search, char_count, request, select, del, del_user, req_del_user;
 
 $(document).ready(function() {
 	/*
@@ -91,13 +91,24 @@ $(document).ready(function() {
 	
 	// Call this function to verify the user password before deleting an account
 	del_user = function() {
-		if(!confirm("Are you sure you want to delete this user?") || $("#delete_verification").val() == "")
+		
+		// Create "pop-up box" with password box (prompt box cannot have password field)
+		$("#all").append("<div id=\"ver_del\">Verify your password here: <input type=\"password\" id=\"ver_del_input\" /> <button onclick=\"req_del_user($('#ver_del_input').val())\">Delete</button> <button onclick=\"$('#ver_del').remove();\">Close</button></div>");
+		
+	}
+	
+	// This is called to delete the user
+	req_del_user = function(pass) {
+		
+		$("#ver_del").remove();
+		
+		if(pass == "" || !confirm("Are you sure you want to delete this user?"))
 			return;
 		$.ajax({
             type: "POST",
             cache: false,
             url: "ver/delete_user.php",
-            data: "pass=" + $("#delete_verification").val(),
+            data: "pass=" + pass,
             success: function(msg) {
 				if(msg == "true")
 					window.location = "res/signout.php";
